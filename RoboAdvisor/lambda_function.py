@@ -155,7 +155,20 @@ def recommend_portfolio(intent_request):
         # Once all slots are valid, a delegate dialog is returned to Lex to choose the next course of action.
         return delegate(output_session_attributes, get_slots(intent_request))
 
-    ### YOUR FINAL INVESTMENT RECOMMENDATION CODE ENDS HERE ###
+    # Get the portfolio recomendation based on Risk Level
+    dict_recommendation = { 
+        "none": "100% bonds (AGG), 0% equities (SPY)",
+        "very low": "80% bonds (AGG), 20% equities (SPY)",
+        "low": "60% bonds (AGG), 40% equities (SPY)",
+        "medium": "40% bonds (AGG), 60% equities (SPY)",
+        "high": "20% bonds (AGG), 80% equities (SPY)",
+        "very high": "0% bonds (AGG), 100% equities (SPY)",
+    }
+    
+
+    initial_recommendation = 0 # Get the value from another place
+    initial_recommendation = dict_recommendation[risk_level.lower()]
+
 
     # Return a message with the initial recommendation based on the risk level.
     return close(
